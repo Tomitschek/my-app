@@ -1,0 +1,19 @@
+.fab {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 100;
+}
+
+.mat-tab-header {
+  z-index: 3;
+  position: relative !important;
+  top: 0px;
+  background-color: white !important;
+}
+.scroll-box {
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: auto;
+  padding: 4px;
+}

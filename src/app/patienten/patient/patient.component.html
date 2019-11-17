@@ -1,0 +1,38 @@
+<!-- Card Patienten:
+      * Name, Vorname
+      * Geburtsdatum
+      * OP
+      * OP-Tage
+      * Verfahren
+      * Isolationsstatus
+      * Station
+      * Abteilung
+      -->
+
+<mat-card class="card" *ngFor="let patient of patients">
+    <mat-card-header>
+      <img mat-card-avatar
+           *ngIf="patient.geschlecht=='m'" src="https://pixabay.com/get/54e0d7444954aa14f1dc8460825668204022dfe05452794d7d2d78d5/avatar-2027366_640.png">
+      <img mat-card-avatar
+           *ngIf="patient.geschlecht=='w'" src="https://pixabay.com/get/54e0d7454f53ac14f1dc8460825668204022dfe05452784972287fd0/avatar-2026510_640.png">
+
+      <mat-card-title>
+        <span>  {{patient.name}}, {{patient.vorname}},
+          {{(((getCurDate().getTime() - patient.geburtsdatum.getTime())/(1000 * 3600 * 24))/365.25) | number:'1.0-0'}} J
+        </span>
+      </mat-card-title>
+        <div fxLayout="column">
+          <span fxFlexAlign="end">{{patient.station}}</span>
+          <mat-chip *ngIf="patient.isolation" color="accent" selected>Isolation</mat-chip>
+        </div>
+      <mat-card-subtitle>
+        <span matBadge="+{{(((getCurDate().getTime() - patient.opDatum.getTime())/(1000 * 3600 * 24))) | number:'1.0-0'}}"
+              matBadgeOverlap="false">{{patient.geburtsdatum | date:'shortDate'}}, {{patient.operation}}</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+  <mat-card-actions>
+    <mat-chip-list aria-label="Verfahren">
+      <mat-chip color="primary" selected *ngFor="let v of patient.verfahren">{{v}}</mat-chip>
+    </mat-chip-list>
+  </mat-card-actions>
+</mat-card>
