@@ -1,7 +1,7 @@
 <mat-tab-group>
   <mat-tab label="Meine">
     <div class="scroll-box">
-      <app-patient></app-patient>
+     <app-patient (patientClicked)="onPatientClicked(patient)" *ngFor="let patient of patients" [patient]="patient"></app-patient>
     </div>
   </mat-tab>
   <mat-tab label="Offene"> alle offenen Patientenfälle </mat-tab>

@@ -1,6 +1,7 @@
-import {Patient} from './patient.model';
+import { Patient } from './patienten.model';
+import { Subject } from 'rxjs';
 
-export class PatientService {
+export class PatientenService {
   private availablePatines: Patient[] = [
     {id: 1, name: 'Rosentreter',
       vorname: 'Hans-Peter',
@@ -22,10 +23,22 @@ export class PatientService {
       station: 'OUC-S2',
       isolation: true
     }
+
   ];
+  patientsUpdated = new Subject();
+
+  addPatient(patient: Patient) {
+    console.log(patient);
+    this.availablePatines.push(patient);
+    this.patientsUpdated.next();
+  }
 
   getAvailablePatients() {
     return this.availablePatines.slice();
   }
 
+  deletePatient(id) {
+    this.availablePatines = this.availablePatines.filter(p =>  p.id !== id);
+    this.patientsUpdated.next();
+  }
 }

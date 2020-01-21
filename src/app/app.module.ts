@@ -27,12 +27,15 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from '@angular/material';
-import {FormsModule} from '@angular/forms';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {PatientService} from './patienten/patient/patient.service';
-import { LOCALE_ID} from '@angular/core';
+
+import { FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { PatientenService } from './patienten/patienten.service';
+import { LOCALE_ID } from '@angular/core';
 import de from '@angular/common/locales/de';
 import { registerLocaleData} from '@angular/common';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 registerLocaleData(de);
 
 
@@ -44,9 +47,11 @@ registerLocaleData(de);
     DashboardComponent,
     HomeComponent,
     PatientenComponent,
-    PatientComponent
+    PatientComponent,
+    SignupComponent,
+    LoginComponent
   ],
-  providers: [PatientService, {provide: LOCALE_ID, useValue: 'de-de'}],
+  providers: [PatientenService, {provide: LOCALE_ID, useValue: 'de-de'}],
   imports: [
     BrowserModule, AppRoutingModule,
     BrowserAnimationsModule,

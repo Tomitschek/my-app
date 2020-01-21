@@ -9,13 +9,12 @@
       * Abteilung
       -->
 
-<mat-card class="card" *ngFor="let patient of patients">
+<mat-card class="card" (click)="onClicked()">
     <mat-card-header>
       <img mat-card-avatar
            *ngIf="patient.geschlecht=='m'" src="https://pixabay.com/get/54e0d7444954aa14f1dc8460825668204022dfe05452794d7d2d78d5/avatar-2027366_640.png">
       <img mat-card-avatar
            *ngIf="patient.geschlecht=='w'" src="https://pixabay.com/get/54e0d7454f53ac14f1dc8460825668204022dfe05452784972287fd0/avatar-2026510_640.png">
-
       <mat-card-title>
         <span>  {{patient.name}}, {{patient.vorname}},
           {{(((getCurDate().getTime() - patient.geburtsdatum.getTime())/(1000 * 3600 * 24))/365.25) | number:'1.0-0'}} J
@@ -36,3 +35,4 @@
     </mat-chip-list>
   </mat-card-actions>
 </mat-card>
+

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Patient} from './patient.model';
-import {PatientService} from './patient.service';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Patient } from '../patienten.model';
+import { PatientenService } from '../patienten.service';
 
 
 
@@ -10,15 +10,18 @@ import {PatientService} from './patient.service';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
-  patients: Patient[] = [];
+  @Input() patient: Patient;
+  @Output() patientClicked = new EventEmitter();
   heute: Date;
 
-  constructor(private patientService: PatientService) {
+  constructor(private patientenService: PatientenService) {
   }
-
   ngOnInit() {
-    this.patients = this.patientService.getAvailablePatients();
     this.heute = new Date();
+  }
+  onClicked() {
+    // this.patientClicked.emit();
+    this.patientenService.deletePatient(this.patient.id);
   }
 
   getCurDate() {
