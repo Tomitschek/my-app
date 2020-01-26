@@ -1,26 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {APP_BASE_HREF, registerLocaleData} from '@angular/common';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationComponent } from './navigation/navigation.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTabsModule } from '@angular/material/tabs';
-import { HomeComponent } from './home/home.component';
-import { PatientenComponent } from './patienten/patienten.component';
-import { PatientComponent } from './patienten/patient/patient.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NavigationComponent} from './navigation/navigation.component';
+import {LayoutModule} from '@angular/cdk/layout';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTabsModule} from '@angular/material/tabs';
+import {HomeComponent} from './home/home.component';
+import {PatientsListComponent} from './patients-list/patients-list.component';
+import {PatientListItemComponent} from './patients-list/patient-list-item/patient-list-item.component';
 import {
   MatBadgeModule,
+  MatCheckboxModule,
   MatChipsModule,
   MatDatepickerModule,
   MatExpansionModule,
@@ -28,16 +30,14 @@ import {
   MatInputModule
 } from '@angular/material';
 
-import { FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { PatientenService } from './patienten/patienten.service';
-import { LOCALE_ID } from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {PatientsListService} from './patients-list/patients-list.service';
 import de from '@angular/common/locales/de';
-import { registerLocaleData} from '@angular/common';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
-registerLocaleData(de);
+import {SignupComponent} from './auth/signup/signup.component';
+import {LoginComponent} from './auth/login/login.component';
 
+registerLocaleData(de);
 
 
 @NgModule({
@@ -46,12 +46,15 @@ registerLocaleData(de);
     NavigationComponent,
     DashboardComponent,
     HomeComponent,
-    PatientenComponent,
-    PatientComponent,
+    PatientsListComponent,
+    PatientListItemComponent,
     SignupComponent,
     LoginComponent
   ],
-  providers: [PatientenService, {provide: LOCALE_ID, useValue: 'de-de'}],
+  providers: [
+    PatientsListService,
+    {provide: LOCALE_ID, useValue: 'de-de'},
+    {provide: APP_BASE_HREF, useValue: '/'}],
   imports: [
     BrowserModule, AppRoutingModule,
     BrowserAnimationsModule,
@@ -72,7 +75,7 @@ registerLocaleData(de);
     MatInputModule,
     MatChipsModule,
     MatBadgeModule,
-    FlexLayoutModule
+    FlexLayoutModule, MatCheckboxModule
   ],
   bootstrap: [AppComponent]
 })

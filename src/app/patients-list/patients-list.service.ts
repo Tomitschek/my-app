@@ -1,9 +1,10 @@
-import { Patient } from './patienten.model';
-import { Subject } from 'rxjs';
+import {Patient} from './patient.model';
+import {Subject} from 'rxjs';
 
-export class PatientenService {
-  private availablePatines: Patient[] = [
-    {id: 1, name: 'Rosentreter',
+export class PatientsListService {
+  private availablePatients: Patient[] = [
+    {
+      id: 1, name: 'Rosentreter',
       vorname: 'Hans-Peter',
       geburtsdatum: new Date('1972-12-12'),
       geschlecht: 'm',
@@ -29,16 +30,16 @@ export class PatientenService {
 
   addPatient(patient: Patient) {
     console.log(patient);
-    this.availablePatines.push(patient);
+    this.availablePatients.push(patient);
     this.patientsUpdated.next();
   }
 
   getAvailablePatients() {
-    return this.availablePatines.slice();
+    return this.availablePatients.slice();
   }
 
   deletePatient(id) {
-    this.availablePatines = this.availablePatines.filter(p =>  p.id !== id);
+    this.availablePatients = this.availablePatients.filter(p => p.id !== id);
     this.patientsUpdated.next();
   }
 }

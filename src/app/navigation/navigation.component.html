@@ -8,7 +8,7 @@
     <mat-nav-list>
       <a mat-list-item routerLink = "" (click)="isHandset$ && drawer.close()">Home</a>
       <a mat-list-item routerLink = "/dashboard" (click)="drawer.close()">Dashboard</a>
-      <a mat-list-item routerLink = "/patienten" (click)="drawer.close()">Patienten</a>
+      <a (click)="drawer.close()" mat-list-item routerLink="/patientlist">Patienten</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">

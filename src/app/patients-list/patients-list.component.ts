@@ -1,19 +1,19 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { PatientenService } from './patienten.service';
-import { Patient } from './patienten.model';
+import {Subscription} from 'rxjs';
+import {PatientsListService} from './patients-list.service';
+import {Patient} from './patient.model';
 
 
 @Component({
   selector: 'app-patienten',
-  templateUrl: './patienten.component.html',
-  styleUrls: ['./patienten.component.css']
+  templateUrl: './patients-list.component.html',
+  styleUrls: ['./patients-list.component.css']
 })
-export class PatientenComponent implements OnInit, OnDestroy {
+export class PatientsListComponent implements OnInit, OnDestroy {
   patients: Patient[] = [];
   private patientsSubscription: Subscription;
 
-  constructor(private patientenService: PatientenService) {
+  constructor(private patientenService: PatientsListService) {
   }
 
   ngOnInit() {
