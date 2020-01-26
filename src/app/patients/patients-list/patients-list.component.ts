@@ -5,7 +5,7 @@ import {Patient} from './patient.model';
 
 
 @Component({
-  selector: 'app-patienten',
+  selector: 'app-patients-list',
   templateUrl: './patients-list.component.html',
   styleUrls: ['./patients-list.component.css']
 })

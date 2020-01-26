@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Patient} from '../patient.model';
-import {PatientsListService} from '../patients-list.service';
 
 
 @Component({
-  selector: 'app-patient',
+  selector: 'app-patient-list-item',
   templateUrl: './patient-list-item.component.html',
   styleUrls: ['./patient-list-item.component.css']
 })
@@ -13,7 +12,7 @@ export class PatientListItemComponent implements OnInit {
   @Output() patientClicked = new EventEmitter();
   heute: Date;
 
-  constructor(private patientenService: PatientsListService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -21,8 +20,7 @@ export class PatientListItemComponent implements OnInit {
   }
 
   onClicked() {
-    // this.patientClicked.emit();
-    this.patientenService.deletePatient(this.patient.id);
+    this.patientClicked.emit();
   }
 
   getCurDate() {

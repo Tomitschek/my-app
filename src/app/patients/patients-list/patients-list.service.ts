@@ -1,5 +1,5 @@
 import {Patient} from './patient.model';
-import {Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 
 export class PatientsListService {
   private availablePatients: Patient[] = [
@@ -41,5 +41,10 @@ export class PatientsListService {
   deletePatient(id) {
     this.availablePatients = this.availablePatients.filter(p => p.id !== id);
     this.patientsUpdated.next();
+  }
+
+  getPatient(id: number): Observable<Patient> {
+    // TODO: send the message _after_ fetching the hero
+    return of(this.availablePatients.find(patient => patient.id === id));
   }
 }

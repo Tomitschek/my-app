@@ -5,7 +5,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NavigationComponent} from './navigation/navigation.component';
+import {NavigationComponent} from './core/navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
@@ -18,8 +18,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 import {HomeComponent} from './home/home.component';
-import {PatientsListComponent} from './patients-list/patients-list.component';
-import {PatientListItemComponent} from './patients-list/patient-list-item/patient-list-item.component';
+import {PatientsListComponent} from './patients/patients-list/patients-list.component';
+import {PatientListItemComponent} from './patients/patients-list/patient-list-item/patient-list-item.component';
 import {
   MatBadgeModule,
   MatCheckboxModule,
@@ -32,10 +32,16 @@ import {
 
 import {FormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {PatientsListService} from './patients-list/patients-list.service';
+import {PatientsListService} from './patients/patients-list/patients-list.service';
 import de from '@angular/common/locales/de';
-import {SignupComponent} from './auth/signup/signup.component';
-import {LoginComponent} from './auth/login/login.component';
+import {SignupComponent} from './core/auth/signup/signup.component';
+import {LoginComponent} from './core/auth/login/login.component';
+import {PatientDetailsComponent} from './patients/patient-details/patient-details.component';
+import {ProcedureSessionComponent} from './patients/procedure-session/procedure-session.component';
+import {AssesmentComponent} from './patients/assesment/assesment.component';
+import {VisiteComponent} from './patients/visite/visite.component';
+import {DeviceComponent} from './device/device.component';
+import {StaffComponent} from './staff/staff.component';
 
 registerLocaleData(de);
 
@@ -49,7 +55,13 @@ registerLocaleData(de);
     PatientsListComponent,
     PatientListItemComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    PatientDetailsComponent,
+    ProcedureSessionComponent,
+    AssesmentComponent,
+    VisiteComponent,
+    DeviceComponent,
+    StaffComponent
   ],
   providers: [
     PatientsListService,
