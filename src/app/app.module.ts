@@ -25,23 +25,37 @@ import {
   MatCheckboxModule,
   MatChipsModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatRadioModule,
+  MatTableModule
 } from '@angular/material';
 
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {PatientsListService} from './patients/patients-list/patients-list.service';
+import {PatientsListService} from './shared/patients-list.service';
 import de from '@angular/common/locales/de';
 import {SignupComponent} from './core/auth/signup/signup.component';
 import {LoginComponent} from './core/auth/login/login.component';
 import {PatientDetailsComponent} from './patients/patient-details/patient-details.component';
 import {ProcedureSessionComponent} from './patients/procedure-session/procedure-session.component';
-import {AssesmentComponent} from './patients/assesment/assesment.component';
 import {VisiteComponent} from './patients/visite/visite.component';
 import {DeviceComponent} from './device/device.component';
 import {StaffComponent} from './staff/staff.component';
+import {PatientDetailAnamneseComponent} from './patients/patient-details/patient-detail-anamnese/patient-detail-anamnese.component';
+import {PatientDetailFollowupComponent} from './patients/patient-details/patient-detail-followup/patient-detail-followup.component';
+import {PatientDetailProcedureComponent} from './patients/patient-details/patient-detail-procedure/patient-detail-procedure.component';
+import {PatientDetailOperationComponent} from './patients/patient-details/patient-detail-operation/patient-detail-operation.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
+import {PatentsListTableComponent} from './patients/patients-list/patents-list-table/patents-list-table.component';
+import {PatientNewDialogComponent} from './patients/patient-new-dialog/patient-new-dialog.component';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 registerLocaleData(de);
 
@@ -58,13 +72,20 @@ registerLocaleData(de);
     LoginComponent,
     PatientDetailsComponent,
     ProcedureSessionComponent,
-    AssesmentComponent,
     VisiteComponent,
     DeviceComponent,
-    StaffComponent
+    StaffComponent,
+    PatientDetailAnamneseComponent,
+    PatientDetailOperationComponent,
+    PatientDetailFollowupComponent,
+    PatientDetailProcedureComponent,
+    PatentsListTableComponent,
+    PatientNewDialogComponent
   ],
   providers: [
     PatientsListService,
+    AngularFireStorage,
+    {provide: FirestoreSettingsToken, useValue: {}}, // https://github.com/angular/angularfire2/issues/1993
     {provide: LOCALE_ID, useValue: 'de-de'},
     {provide: APP_BASE_HREF, useValue: '/'}],
   imports: [
@@ -80,6 +101,8 @@ registerLocaleData(de);
     MatCardModule,
     MatMenuModule,
     MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatExpansionModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -87,8 +110,11 @@ registerLocaleData(de);
     MatInputModule,
     MatChipsModule,
     MatBadgeModule,
-    FlexLayoutModule, MatCheckboxModule
+    FlexLayoutModule, MatCheckboxModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, MatDialogModule, ReactiveFormsModule, MatRadioModule, MatNativeDateModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [PatientNewDialogComponent]
 })
 export class AppModule { }

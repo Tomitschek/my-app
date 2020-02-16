@@ -6,6 +6,7 @@ import {PatientsListComponent} from './patients/patients-list/patients-list.comp
 import {SignupComponent} from './core/auth/signup/signup.component';
 import {LoginComponent} from './core/auth/login/login.component';
 import {PatientDetailsComponent} from './patients/patient-details/patient-details.component';
+import {DeviceComponent} from './device/device.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'patientslist', component: PatientsListComponent},
   {path: 'patientdetails/:id', component: PatientDetailsComponent},
+  {path: 'devices', component: DeviceComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: '**', component: HomeComponent}];

@@ -1,1 +1,9 @@
-<p>patients-details works! {{patient.name}}</p>
+<div *ngIf="patient$ | async as patient">
+  <app-patient-list-item [patient]="patient"></app-patient-list-item>
+  <app-patient-detail-anamnese></app-patient-detail-anamnese>
+  <app-patient-detail-procedure></app-patient-detail-procedure>
+  <app-patient-detail-operation></app-patient-detail-operation>
+  <app-patient-detail-followup></app-patient-detail-followup>
+</div>
+
+

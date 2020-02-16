@@ -1,0 +1,37 @@
+<form #f="ngForm" class="normal-form">
+  <div class="controles-container">
+    <mat-form-field>
+      <input matInput name="pid" ngModel placeholder="PID" required>
+      <mat-error>Pflichtfeld!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="name" ngModel placeholder="Name" required>
+      <mat-error>Pflichtfeld!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="vorname" ngModel placeholder="Vorname" required>
+      <mat-error>Pflichtfeld!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input [matDatepicker]="picker" matInput name="geburtsdatum" ngModel placeholder="Geburtsdatum" required>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>Pflichtfeld!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="email" ngModel placeholder="Email" required type="email">
+      <mat-error>ungültige eMail-Adresse!</mat-error>
+    </mat-form-field>
+    <mat-radio-group name="geschlecht" ngModel required>
+      <mat-radio-button value="w">weiblich</mat-radio-button>
+      <mat-radio-button value="m">männlich</mat-radio-button>
+      <mat-radio-button value="d">divers</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="button-row">
+    <button (click)="onSubmit(f)" [disabled]="f.invalid" [mat-dialog-close]="" color="primary" mat-raised-button
+            type="submit">OK
+    </button>
+    <button (click)="onNoClick()" color="warn" mat-raised-button type="submit">Abbrechen</button>
+  </div>
+</form>

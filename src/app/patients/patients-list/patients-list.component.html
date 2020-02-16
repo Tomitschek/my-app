@@ -1,13 +1,20 @@
 <mat-tab-group>
   <mat-tab label="Meine">
-    <div class="scroll-box">
-      <app-patient-list-item *ngFor="let patient of patients" [patient]="patient"
-                             routerLink="/patientdetails/{{patient.id}}"></app-patient-list-item>
+    <div gdGap="10px">
+      <app-patient-list-item
+        *ngFor="let patient of (patientsList$ | async)"
+        [patient]="patient"
+        [routerLink]="['/patientdetails', patient.id]"
+        routerLinkActive="active-link">
+      </app-patient-list-item>
     </div>
   </mat-tab>
-  <mat-tab label="Offene"> alle offenen Patientenfälle </mat-tab>
-  <mat-tab label="Alle"> Alle Patienten in der Datenbank </mat-tab>
+  <mat-tab label="Offene"> alle offenen Patientenfälle</mat-tab>
+  <mat-tab label="Alle">
+    <!--<app-patents-list-table></app-patents-list-table>
+    -->
+  </mat-tab>
 </mat-tab-group>
-<button mat-fab class="fab" (click)="addEvent()">
-    <mat-icon>add</mat-icon>
-  </button>
+<button (click)="openDialog()" class="fab" mat-fab>
+  <mat-icon>add</mat-icon>
+</button>

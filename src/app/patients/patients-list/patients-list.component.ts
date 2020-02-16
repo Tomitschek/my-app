@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {PatientsListService} from './patients-list.service';
-import {Patient} from './patient.model';
+import {Observable} from 'rxjs';
+import {Patient} from '../../shared/patient.model';
+import {MatDialog} from '@angular/material';
+import {PatientNewDialogComponent} from '../patient-new-dialog/patient-new-dialog.component';
+import {FirestoreService} from '../../shared/firestore.service';
 
 
 @Component({
@@ -10,39 +12,32 @@ import {Patient} from './patient.model';
   styleUrls: ['./patients-list.component.css']
 })
 export class PatientsListComponent implements OnInit, OnDestroy {
-  patients: Patient[] = [];
-  private patientsSubscription: Subscription;
+  newPatient: Patient;
+  patientsList$: Observable<Patient[]>;
 
-  constructor(private patientenService: PatientsListService) {
+
+  constructor(private fs: FirestoreService, public newPatDialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.patients = this.patientenService.getAvailablePatients();
-    this.patientsSubscription = this.patientenService.patientsUpdated.subscribe(() => {
-      this.patients = this.patientenService.getAvailablePatients();
-    });
+    this.patientsList$ = this.fs.getPatients();
+    console.log('onInitPatList');
   }
+
   ngOnDestroy(): void {
-    this.patientsSubscription.unsubscribe();
+
   }
 
-  addEvent() {
-    console.log('Add what?');
-    this.patientenService.addPatient(
-      {id: 3, name: 'von Katzenellenbogen',
-        vorname: 'Johanna',
-        geburtsdatum: new Date('1973-12-12'),
-        geschlecht: 'w',
-        opDatum: new Date('2019-10-10'),
-        operation: 'OSG Fraktur',
-        verfahren: ['DIK', 'SNB'],
-        station: 'OUC-S2',
-        isolation: true
-      }
-    );
-  }
+  openDialog(): void {
+    const dialogRef = this.newPatDialog.open(PatientNewDialogComponent, {
+      width: '90%',
+      disableClose: true,
+      autoFocus: true,
+    });
 
-  onPatientClicked(patient) {
-    console.log(patient);
+    dialogRef.afterClosed().subscribe(result => {
+      this.newPatient = result;
+      console.log(this.newPatient);
+    });
   }
 }

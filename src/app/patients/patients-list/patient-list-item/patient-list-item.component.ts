@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Patient} from '../patient.model';
+import {Patient} from '../../../shared/patient.model';
 
 
 @Component({
@@ -17,10 +17,7 @@ export class PatientListItemComponent implements OnInit {
 
   ngOnInit() {
     this.heute = new Date();
-  }
-
-  onClicked() {
-    this.patientClicked.emit();
+    console.log('init ListItem');
   }
 
   getCurDate() {
