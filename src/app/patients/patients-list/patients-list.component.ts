@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {Patient} from '../../shared/patient.model';
 import {MatDialog} from '@angular/material';
 import {PatientNewDialogComponent} from '../patient-new-dialog/patient-new-dialog.component';
-import {FirestoreService} from '../../shared/firestore.service';
+import {PatientService} from '../../shared/patient.service';
 
 
 @Component({
@@ -14,9 +14,9 @@ import {FirestoreService} from '../../shared/firestore.service';
 export class PatientsListComponent implements OnInit, OnDestroy {
   newPatient: Patient;
   patientsList$: Observable<Patient[]>;
+  subs: Subscription[] = [];
 
-
-  constructor(private fs: FirestoreService, public newPatDialog: MatDialog) {
+  constructor(private fs: PatientService, public newPatDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -25,7 +25,9 @@ export class PatientsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.subs.forEach(sub => {
+      sub.unsubscribe();
+    });
   }
 
   openDialog(): void {

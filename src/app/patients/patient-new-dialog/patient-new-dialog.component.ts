@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {PatientsListService} from '../../shared/patients-list.service';
 import {NgForm} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
+import {Patient} from '../../shared/patient.model';
+import {PatientService} from '../../shared/patient.service';
 
 
 @Component({
@@ -11,11 +12,12 @@ import {MatDialogRef} from '@angular/material';
 })
 export class PatientNewDialogComponent implements OnInit {
 
-  constructor(private patientListService: PatientsListService,
+  newPatient: Patient;
+
+  constructor(private fs: PatientService,
               public dialogRef: MatDialogRef<PatientNewDialogComponent>) {
     console.log('Dialog Construktor');
   }
-
 
   ngOnInit() {
     console.log('FormInit');
@@ -24,14 +26,8 @@ export class PatientNewDialogComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     console.log('PatOK');
-    this.patientListService.addPatient({
-      id: form.value.id,
-      name: form.value.name,
-      vorname: form.value.vorname,
-      geburtsdatum: form.value.geburtsdatum,
-      geschlecht: form.value.geschlecht,
-      opDatum: form.value.geburtsdatum
-    });
+    this.savePatChanges(form);
+
     // To Do: Check Id unique
 
   }
@@ -39,4 +35,18 @@ export class PatientNewDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  async savePatChanges(form: NgForm) {
+    this.newPatient = ({
+      pid: form.value.pid,
+      name: form.value.name,
+      vorname: form.value.vorname,
+      geburtsdatum: form.value.geburtsdatum,
+      geschlecht: form.value.geschlecht
+    });
+    await this.fs.savePatient(this.newPatient);
+  }
+
 }
+
+

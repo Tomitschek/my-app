@@ -7,7 +7,7 @@
 <mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="opDatum">
     <mat-header-cell *matHeaderCellDef mat-sort-header>OP</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.opDatum | date }}</mat-cell>
+    <mat-cell *matCellDef="let element">{{ element.opDatum * 1000 | date }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="name">
@@ -17,7 +17,7 @@
 
   <ng-container matColumnDef="geburtsdatum">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Geb</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.geburtsdatum | date }}</mat-cell>
+    <mat-cell *matCellDef="let element">{{ element.geburtsdatum * 1000 | date }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="state">

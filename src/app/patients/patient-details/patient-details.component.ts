@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../shared/patient.model';
-import {PatientsListService} from '../../shared/patients-list.service';
 import {Observable, Subscription} from 'rxjs';
-import {FirestoreService} from '../../shared/firestore.service';
+import {PatientService} from '../../shared/patient.service';
 
 @Component({
   selector: 'app-patients-details',
@@ -11,7 +10,6 @@ import {FirestoreService} from '../../shared/firestore.service';
   styleUrls: ['./patient-details.component.css']
 })
 export class PatientDetailsComponent implements OnInit, OnDestroy {
-  // @Input() patient: Patient;
 
   patientId: string;
   patient$: Observable<Patient>;
@@ -19,9 +17,7 @@ export class PatientDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private patientListService: PatientsListService,
-    private fs: FirestoreService,
-  ) {
+    private fs: PatientService) {
   }
 
   ngOnInit() {
@@ -33,35 +29,6 @@ export class PatientDetailsComponent implements OnInit, OnDestroy {
       })
     );
     console.log(this.patientId);
-
-    /*  this.subs.push(
-      this.patient$
-        .pipe(
-          map(patient => {
-            if (patient.geburtsdatum) {
-              const timestamp = patient.geburtsdatum as Timestamp;
-              patient.geburtsdatum = timestamp.toDate();
-            }
-            return patient;
-          })
-        )
-        .subscribe(patient => {
-          this.patient = {
-            id: patient.id,
-            name: patient.name,
-            vorname: patient.vorname,
-            geburtsdatum: patient.geburtsdatum,
-            geschlecht: patient.geschlecht,
-            opDatum: patient.opDatum,
-            operation: patient.operation,
-            verfahren: patient.verfahren,
-            station: patient.station,
-            isolation: patient.isolation
-          };
-        })
-
-
-      ); */
   }
 
   ngOnDestroy(): void {

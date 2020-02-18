@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
-import {PatientsListService} from '../../../shared/patients-list.service';
 import {Patient} from '../../../shared/patient.model';
+import {PatientService} from '../../../shared/patient.service';
 
 @Component({
   selector: 'app-patents-list-table',
@@ -14,18 +14,17 @@ export class PatentsListTableComponent implements OnInit, AfterViewInit, OnDestr
   dataSource = new MatTableDataSource<Patient>();
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  private patChangedSubscription: Subscription;
+  subs: Subscription[] = [];
 
-  constructor(private patientsListService: PatientsListService) {
+  constructor(private fs: PatientService) {
   }
 
   ngOnInit() {
-    this.patChangedSubscription = this.patientsListService.patientsChanged.subscribe(
+
+    this.subs.push(this.fs.getPatients().subscribe(
       (patients: Patient[]) => {
         this.dataSource.data = patients;
-      }
-    );
-    this.patientsListService.fetchAvailablePatients();
+      }));
   }
 
   ngAfterViewInit() {
@@ -38,6 +37,8 @@ export class PatentsListTableComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy() {
-    this.patChangedSubscription.unsubscribe();
+    this.subs.forEach(sub => {
+      sub.unsubscribe();
+    });
   }
 }

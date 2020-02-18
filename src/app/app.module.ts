@@ -37,7 +37,6 @@ import {
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {PatientsListService} from './shared/patients-list.service';
 import de from '@angular/common/locales/de';
 import {SignupComponent} from './core/auth/signup/signup.component';
 import {LoginComponent} from './core/auth/login/login.component';
@@ -83,7 +82,6 @@ registerLocaleData(de);
     PatientNewDialogComponent
   ],
   providers: [
-    PatientsListService,
     AngularFireStorage,
     {provide: FirestoreSettingsToken, useValue: {}}, // https://github.com/angular/angularfire2/issues/1993
     {provide: LOCALE_ID, useValue: 'de-de'},

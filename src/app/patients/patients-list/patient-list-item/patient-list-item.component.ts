@@ -17,7 +17,6 @@ export class PatientListItemComponent implements OnInit {
 
   ngOnInit() {
     this.heute = new Date();
-    console.log('init ListItem');
   }
 
   getCurDate() {
