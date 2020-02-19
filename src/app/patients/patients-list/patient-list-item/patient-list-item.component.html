@@ -17,7 +17,8 @@
          *ngIf="patient.geschlecht=='w'" src="assets/Images/user-297566_640.png">
     <mat-card-title>
         <span>  {{patient.name}}, {{patient.vorname}}, {{patient.pid}}
-          {{(((getCurDate().getTime() - patient.geburtsdatum) / (1000 * 3600 * 24 * 365))) | number:'1.0-0'}}, J
+          <!-- {{(((getCurDate().getTime() - patient.geburtsdatum) / (1000 * 3600 * 24 * 365))) | number:'1.0-0'}}, J
+          -->
         </span>
     </mat-card-title>
     <div fxLayout="column">
@@ -25,8 +26,9 @@
       <mat-chip *ngIf="patient.isolation" color="accent" selected>Isolation</mat-chip>
     </div>
     <mat-card-subtitle>
-        <span matBadge="+{{(((getCurDate().getTime() - patient.opDatum)/(1000 * 3600 * 24))) | number:'1.0-0'}}"
-              matBadgeOverlap="false">{{patient.geburtsdatum| date:'shortDate'}}, {{patient.operation}}</span>
+      <!-- <span matBadge="+{{(((getCurDate().getTime() - patient.opDatum)/(1000 * 3600 * 24))) | number:'1.0-0'}}"
+            matBadgeOverlap="false">{{patient.geburtsdatum| date:'shortDate'}}, {{patient.operation}}</span>
+            -->
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
