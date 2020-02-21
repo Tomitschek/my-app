@@ -12,8 +12,8 @@ import {PatientService} from '../../../shared/patient.service';
 export class PatentsListTableComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns = ['opDatum', 'name', 'geburtsdatum', 'state'];
   dataSource = new MatTableDataSource<Patient>();
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   subs: Subscription[] = [];
 
   constructor(private fs: PatientService) {
