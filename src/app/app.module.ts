@@ -48,12 +48,12 @@ import {PatientDetailAnamneseComponent} from './patients/patient-details/patient
 import {PatientDetailFollowupComponent} from './patients/patient-details/patient-detail-followup/patient-detail-followup.component';
 import {PatientDetailProcedureComponent} from './patients/patient-details/patient-detail-procedure/patient-detail-procedure.component';
 import {PatientDetailOperationComponent} from './patients/patient-details/patient-detail-operation/patient-detail-operation.component';
-import {AngularFireModule, AngularFireStorageModule} from '@angular/fire';
+
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
 import {PatentsListTableComponent} from './patients/patients-list/patents-list-table/patents-list-table.component';
 import {PatientNewDialogComponent} from './patients/patient-new-dialog/patient-new-dialog.component';
-import {AngularFireStorage} from '@angular/fire/storage';
+import {AngularFireStorage, AngularFireStorageModule} from '@angular/fire/storage';
 
 registerLocaleData(de);
 
@@ -86,7 +86,7 @@ registerLocaleData(de);
     {provide: LOCALE_ID, useValue: 'de-de'},
     {provide: APP_BASE_HREF, useValue: '/'}],
   imports: [
-    BrowserModule, AppRoutingModule,
+    BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
@@ -107,9 +107,10 @@ registerLocaleData(de);
     MatInputModule,
     MatChipsModule,
     MatBadgeModule,
-    FlexLayoutModule, MatCheckboxModule,
+    MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, MatDialogModule, ReactiveFormsModule, MatRadioModule, MatNativeDateModule, AngularFireStorageModule
+    AngularFirestoreModule, MatDialogModule, ReactiveFormsModule, MatRadioModule, MatNativeDateModule, AngularFireStorageModule,
+    AppRoutingModule
   ],
   bootstrap: [AppComponent],
   entryComponents: [PatientNewDialogComponent]
