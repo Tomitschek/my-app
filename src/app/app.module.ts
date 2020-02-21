@@ -36,7 +36,6 @@ import {
 } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import de from '@angular/common/locales/de';
 import {SignupComponent} from './core/auth/signup/signup.component';
 import {LoginComponent} from './core/auth/login/login.component';
