@@ -1,9 +1,24 @@
 <div *ngIf="patient$ | async as patient">
   <app-patient-list-item [patient]="patient"></app-patient-list-item>
-  <app-patient-detail-anamnese></app-patient-detail-anamnese>
-  <app-patient-detail-procedure></app-patient-detail-procedure>
-  <app-patient-detail-operation></app-patient-detail-operation>
   <app-patient-detail-followup></app-patient-detail-followup>
+  <div class="container">
+
+    <div class="timeline-item" date-is='20-07-1990'>
+
+      <app-patient-list-item [patient]="patient"></app-patient-list-item>
+    </div>
+
+    <div class="timeline-item" date-is='20-07-1990'>
+
+      <app-patient-list-item [patient]="patient"></app-patient-list-item>
+    </div>
+
+    <div class="timeline-item" date-is='20-07-1990'>
+
+      <app-patient-list-item [patient]="patient"></app-patient-list-item>
+    </div>
+
+  </div>
 </div>
 
 

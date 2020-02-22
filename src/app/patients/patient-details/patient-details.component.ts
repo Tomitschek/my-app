@@ -7,7 +7,7 @@ import {PatientService} from '../../shared/patient.service';
 @Component({
   selector: 'app-patients-details',
   templateUrl: './patient-details.component.html',
-  styleUrls: ['./patient-details.component.css']
+  styleUrls: ['./patient-details.component.scss']
 })
 export class PatientDetailsComponent implements OnInit, OnDestroy {
 

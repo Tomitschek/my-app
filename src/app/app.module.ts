@@ -54,6 +54,7 @@ import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/fire
 import {PatentsListTableComponent} from './patients/patients-list/patents-list-table/patents-list-table.component';
 import {PatientNewDialogComponent} from './patients/patient-new-dialog/patient-new-dialog.component';
 import {AngularFireStorage, AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireModule} from '@angular/fire';
 
 registerLocaleData(de);
 
