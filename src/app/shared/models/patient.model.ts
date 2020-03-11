@@ -9,7 +9,7 @@ export interface Patient {
   geburtsdatum?: Timestamp | Date;
   geschlecht?: 'm' | 'w' | 'u';
   opDatum?: Timestamp | Date;
-  operation?: string;
+  letzteOP?: string;
   verfahren?: Array<string>;
   station?: string;
   abteilung?: string;

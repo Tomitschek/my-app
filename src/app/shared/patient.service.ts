@@ -3,9 +3,10 @@ import {Observable} from 'rxjs';
 
 
 import {AngularfirebaseService} from './angularfirebase.service';
-import {Patient} from './patient.model';
+import {Patient} from './models/patient.model';
 import {map} from 'rxjs/operators';
 import * as firebase from 'firebase';
+import {TimelineElement} from './models/timeline-element.model';
 import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable({
@@ -16,7 +17,6 @@ export class PatientService {
   }
 
   // Getters
-
   getPatient(patId: string): Observable<Patient> {
     console.log('getPatient');
     return this.afb.doc$<Patient>(`Patienten/${patId}`).pipe(
@@ -52,4 +52,19 @@ export class PatientService {
     console.log(patient);
     return this.afb.add(`Patienten`, patient);
   }
+
+  getTimeline(patId: string): Observable<TimelineElement[]> {
+    console.log(patId);
+    return this.afb.colWithIds$<TimelineElement[]>(`Patienten/${patId}/TimelineElements`).pipe(
+      map(actions => actions.map(timelineElement => {
+        if (timelineElement.start) {
+          const timestamp = timelineElement.start as Timestamp;
+          timelineElement.start = timestamp.toDate();
+        }
+        return timelineElement;
+      }))
+    );
+  }
 }
+
+

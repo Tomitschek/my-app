@@ -1,12 +1,61 @@
 #container {
 }
+
 #more {
   width: 20px;
 }
 
 .card {
   margin: 0 auto;
+
 }
-.card + .card {
-  margin-top: 5px;
+
+.patcard {
+}
+
+.container {
+  /* border-bottom-color: #ffa100;
+  border-style: solid;
+
+   */
+}
+
+.child {
+  height: 80px;
+}
+
+#left {
+
+  /* background-color: coral;
+
+   */
+}
+
+#middle {
+  flex: 1 1 auto;
+  /* background-color: bisque;
+
+   */
+}
+
+#right {
+  /* background-color: #039be5;
+
+   */
+  align-items: center;
+}
+
+#operation {
+  flex: auto;
+  /* background-color: blueviolet;
+
+   */
+}
+
+#chips {
+  flex: auto;
+  /* background-color: brown;
+
+   */
+
 }

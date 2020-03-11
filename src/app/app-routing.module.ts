@@ -7,6 +7,7 @@ import {SignupComponent} from './core/auth/signup/signup.component';
 import {LoginComponent} from './core/auth/login/login.component';
 import {PatientDetailsComponent} from './patients/patient-details/patient-details.component';
 import {DeviceComponent} from './device/device.component';
+import {NeueAnamneseComponent} from './patients/patient-details/patient-detail-item/patient-detail-anamnese/neue-anamnese/neue-anamnese.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'patientslist', component: PatientsListComponent},
   {path: 'patientdetails/:id', component: PatientDetailsComponent},
+  {path: 'neueAnamnese/:id', component: NeueAnamneseComponent},
   {path: 'devices', component: DeviceComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},

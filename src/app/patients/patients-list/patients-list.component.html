@@ -9,7 +9,7 @@
       </app-patient-list-item>
     </div>
   </mat-tab>
-  <mat-tab label="Offene"> alle offenen Patientenfälle</mat-tab>
+  <mat-tab label="Offene">alle offenen Patientenfälle</mat-tab>
   <mat-tab label="Alle">
     <app-patents-list-table></app-patents-list-table>
   </mat-tab>
@@ -17,3 +17,6 @@
 <button (click)="openDialog()" class="fab" mat-fab>
   <mat-icon>add</mat-icon>
 </button>
+<ng-template #spin>
+  <mat-spinner></mat-spinner>
+</ng-template>

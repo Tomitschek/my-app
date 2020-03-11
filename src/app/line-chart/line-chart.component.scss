@@ -1,0 +1,7 @@
+.card {
+  margin: 0 auto;
+}
+
+.card + .card {
+  margin-top: 5px;
+}

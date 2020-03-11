@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
-import {Patient} from '../../shared/patient.model';
-import {MatDialog} from '@angular/material';
+import {Patient} from '../../shared/models/patient.model';
+import {MatDialog} from '@angular/material/dialog';
 import {PatientNewDialogComponent} from '../patient-new-dialog/patient-new-dialog.component';
 import {PatientService} from '../../shared/patient.service';
 

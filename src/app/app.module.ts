@@ -20,34 +20,30 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {HomeComponent} from './home/home.component';
 import {PatientsListComponent} from './patients/patients-list/patients-list.component';
 import {PatientListItemComponent} from './patients/patients-list/patient-list-item/patient-list-item.component';
-import {
-  MatBadgeModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatRadioModule,
-  MatTableModule
-} from '@angular/material';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTableModule} from '@angular/material/table';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import de from '@angular/common/locales/de';
 import {SignupComponent} from './core/auth/signup/signup.component';
 import {LoginComponent} from './core/auth/login/login.component';
 import {PatientDetailsComponent} from './patients/patient-details/patient-details.component';
-import {ProcedureSessionComponent} from './patients/procedure-session/procedure-session.component';
-import {VisiteComponent} from './patients/visite/visite.component';
 import {DeviceComponent} from './device/device.component';
 import {StaffComponent} from './staff/staff.component';
-import {PatientDetailAnamneseComponent} from './patients/patient-details/patient-detail-anamnese/patient-detail-anamnese.component';
-import {PatientDetailFollowupComponent} from './patients/patient-details/patient-detail-followup/patient-detail-followup.component';
-import {PatientDetailProcedureComponent} from './patients/patient-details/patient-detail-procedure/patient-detail-procedure.component';
-import {PatientDetailOperationComponent} from './patients/patient-details/patient-detail-operation/patient-detail-operation.component';
+import {PatientDetailAnamneseComponent} from './patients/patient-details/patient-detail-item/patient-detail-anamnese/patient-detail-anamnese.component';
+import {PatientDetailFollowupComponent} from './patients/patient-details/patient-detail-item/patient-detail-followup/patient-detail-followup.component';
+import {PatientDetailProcedureComponent} from './patients/patient-details/patient-detail-item/patient-detail-procedure/patient-detail-procedure.component';
+import {PatientDetailOperationComponent} from './patients/patient-details/patient-detail-item/patient-detail-operation/patient-detail-operation.component';
 
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore';
@@ -55,6 +51,18 @@ import {PatentsListTableComponent} from './patients/patients-list/patents-list-t
 import {PatientNewDialogComponent} from './patients/patient-new-dialog/patient-new-dialog.component';
 import {AngularFireStorage, AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
+import {LineChartComponent} from './line-chart/line-chart.component';
+import {ChartsModule} from 'ng2-charts';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {FlexLayoutModule, GridModule} from '@angular/flex-layout';
+import {PatientDetailItemComponent} from './patients/patient-details/patient-detail-item/patient-detail-item.component';
+import {PatientDetailAddItemNavComponent} from './patients/patient-details/patient-detail-add-item-nav/patient-detail-add-item-nav.component';
+import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {NeueAnamneseComponent} from './patients/patient-details/patient-detail-item/patient-detail-anamnese/neue-anamnese/neue-anamnese.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 registerLocaleData(de);
 
@@ -70,8 +78,6 @@ registerLocaleData(de);
     SignupComponent,
     LoginComponent,
     PatientDetailsComponent,
-    ProcedureSessionComponent,
-    VisiteComponent,
     DeviceComponent,
     StaffComponent,
     PatientDetailAnamneseComponent,
@@ -79,12 +85,17 @@ registerLocaleData(de);
     PatientDetailFollowupComponent,
     PatientDetailProcedureComponent,
     PatentsListTableComponent,
-    PatientNewDialogComponent
+    PatientNewDialogComponent,
+    LineChartComponent,
+    PatientDetailItemComponent,
+    PatientDetailAddItemNavComponent,
+    NeueAnamneseComponent
   ],
   providers: [
     AngularFireStorage,
     {provide: FirestoreSettingsToken, useValue: {}}, // https://github.com/angular/angularfire2/issues/1993
     {provide: LOCALE_ID, useValue: 'de-de'},
+    {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     {provide: APP_BASE_HREF, useValue: '/'}],
   imports: [
     BrowserModule,
@@ -109,11 +120,15 @@ registerLocaleData(de);
     MatChipsModule,
     MatBadgeModule,
     MatCheckboxModule,
+    MatBottomSheetModule,
+    MatSnackBarModule,
+    MatSelectModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, MatDialogModule, ReactiveFormsModule, MatRadioModule, MatNativeDateModule, AngularFireStorageModule,
-    AppRoutingModule
+    AppRoutingModule, ChartsModule, MatProgressSpinnerModule, GridModule,
+    FlexLayoutModule, MatProgressBarModule
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PatientNewDialogComponent]
+  entryComponents: [PatientNewDialogComponent, PatientDetailAddItemNavComponent]
 })
 export class AppModule { }

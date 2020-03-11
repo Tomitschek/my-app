@@ -1,0 +1,17 @@
+<mat-nav-list>
+  <a (click)="openLink($event)" mat-list-item routerLink="neueAnamnese/{{data.patId}}">
+    <span mat-line>Neue Anamnese</span>
+  </a>
+
+  <a (click)="openLink($event)" mat-list-item routerLink="">
+    <span mat-line>Neue Anlage</span>
+  </a>
+
+  <a (click)="openLink($event)" href="https://plus.google.com/" mat-list-item>
+    <span mat-line>Neue Operation</span>
+  </a>
+
+  <a (click)="openLink($event)" href="https://hangouts.google.com/" mat-list-item>
+    <span mat-line>Neue Visite</span>
+  </a>
+</mat-nav-list>

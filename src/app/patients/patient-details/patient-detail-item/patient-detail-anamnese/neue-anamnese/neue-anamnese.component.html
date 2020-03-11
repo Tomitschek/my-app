@@ -1,0 +1,28 @@
+<form (ngSubmit)="submitHandler()" [formGroup]="anamneseForm" [hidden]="success">
+  <h1>Neue Anamnese</h1>
+  <hr>
+  <mat-form-field>
+    <input formControlName="start" matInput placeholder="Begin">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input formControlName="end" matInput placeholder="Ende">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea formControlName="type" matInput placeholder="Type">
+    </textarea>
+  </mat-form-field>
+  <div class="anamnese-image-upload">
+    <span>Image:</span>
+    <input (change)="uploadFile($event)" type="file">
+    <div *ngIf="(uploadPercent$ | async) as percentage" calls="upload-progress">
+      Upload Progress:
+      <mat-progress-bar [value]="percentage" class="progress-bar" mode="determinate"></mat-progress-bar>
+      <span>{{percentage / 100 | percent}}</span>
+    </div>
+  </div>
+  <button [disabled]="anamneseForm.invalid" color="primary" mat-raised-button type="submit">add</button>
+</form>
+
+<div *ngIf="success">Anamnese gespeichert</div>

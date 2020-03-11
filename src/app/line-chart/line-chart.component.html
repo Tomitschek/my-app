@@ -1,0 +1,17 @@
+<mat-card class="flex" class="card">
+  <div class="flex-item">
+    <div style="display: block;">
+      <canvas (chartClick)="chartClicked($event)" (chartHover)="chartHovered($event)" [chartType]="lineChartType"
+              [colors]="lineChartColors"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [legend]="lineChartLegend"
+              [options]="lineChartOptions"
+              [plugins]="lineChartPlugins"
+              baseChart
+              height="100"
+              width="200"></canvas>
+    </div>
+  </div>
+</mat-card>
+

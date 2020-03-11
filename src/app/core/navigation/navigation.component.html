@@ -25,8 +25,16 @@
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+
       </button>
       <span>my-app</span>
+      <span class="example-spacer"></span>
+      <mat-icon *ngIf=" isConnected " aria-hidden="false" aria-label="Example delete icon" class="example-icon">
+        signal_wifi_4_bar
+      </mat-icon>
+      <mat-icon *ngIf=" !isConnected " aria-hidden="false" aria-label="Example delete icon" class="example-icon">
+        signal_wifi_off
+      </mat-icon>
     </mat-toolbar>
     <main class="content">
       <router-outlet></router-outlet>
