@@ -1,1 +1,19 @@
-<p>patient-detail-procedure works!</p>
+<div *ngIf="procedure$ | async as procedur; else: spin" gdGap="10px">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <fa-icon icon="syringe"></fa-icon>
+    </div>
+    <mat-card-title>
+      Anlageprozedur
+      <button aria-label="Toggle menu" class="more-button" mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-card-title>
+  </mat-card-header>
+  <ng-container *ngIf="procedur.aImage">
+    <img [src]="procedur.aImage" mat-card-image>
+  </ng-container>
+</div>
+<ng-template #spin>
+  <mat-spinner></mat-spinner>
+</ng-template>

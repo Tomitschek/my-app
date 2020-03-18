@@ -1,21 +1,33 @@
+
 <mat-tab-group>
   <mat-tab label="Meine">
     <div gdGap="10px">
       <app-patient-list-item
-        *ngFor="let patient of (patientsList$ | async)"
-        [patient]="patient"
-        [routerLink]="['/patientdetails', patient.id]"
-        routerLinkActive="active-link">
+        *ngFor="let patient of (attachedPatientsList$ | async)"
+        [patient]="patient">
       </app-patient-list-item>
     </div>
   </mat-tab>
-  <mat-tab label="Offene">alle offenen Patientenfälle</mat-tab>
+  <mat-tab label="Offene">
+    <div gdGap="10px">
+      <app-patient-list-item
+        *ngFor="let patient of (unattachedPatientsList$ | async)"
+        [patient]="patient">
+      </app-patient-list-item>
+    </div>
+  </mat-tab>
+
   <mat-tab label="Alle">
-    <app-patents-list-table></app-patents-list-table>
+    <div gdGap="10px">
+      <app-patient-list-item
+        *ngFor="let patient of (patientsList$ | async)"
+        [patient]="patient">
+      </app-patient-list-item>
+    </div>
   </mat-tab>
 </mat-tab-group>
 <button (click)="openDialog()" class="fab" mat-fab>
-  <mat-icon>add</mat-icon>
+  <mat-icon>person_add</mat-icon>
 </button>
 <ng-template #spin>
   <mat-spinner></mat-spinner>

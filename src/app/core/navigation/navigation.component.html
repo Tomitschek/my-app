@@ -7,12 +7,23 @@
     <mat-toolbar class="toolbar">Menu</mat-toolbar>
     <mat-nav-list>
       <a (click)="isHandset$ && drawer.close()" mat-list-item routerLink="">
-        Home</a>
-      <a (click)="drawer.close()" mat-list-item routerLink="/dashboard">
+        <mat-icon>home_work</mat-icon>
+        Home
+      </a>
+      <a (click)="isHandset$ && drawer.close()" *ngIf="!isAuth" mat-list-item routerLink="/login">
+        <mat-icon>account_circle</mat-icon>
+        Login</a>
+      <a (click)="onLogout(); isHandset$ && drawer.close()" *ngIf="isAuth" mat-list-item>
+        <mat-icon>exit_to_app</mat-icon>
+        Logout</a>
+      <a (click)="isHandset$ && drawer.close()" mat-list-item routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
         Dashboard</a>
-      <a (click)="drawer.close()" mat-list-item routerLink="/patientslist">
+      <a (click)="isHandset$ && drawer.close()" mat-list-item routerLink="/patientslist">
+        <mat-icon>people</mat-icon>
         Patienten</a>
-      <a (click)="drawer.close()" mat-list-item routerLink="/devices">
+      <a (click)="isHandset$ && drawer.close()" mat-list-item routerLink="/devices">
+        <mat-icon>settings_cell</mat-icon>
         Geräte</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -25,15 +36,17 @@
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-
       </button>
-      <span>my-app</span>
-      <span class="example-spacer"></span>
-      <mat-icon *ngIf=" isConnected " aria-hidden="false" aria-label="Example delete icon" class="example-icon">
+      <span>SchmerTx</span>
+      <span class="spacer"></span>
+      <mat-icon *ngIf=" isConnected " aria-hidden="false">
         signal_wifi_4_bar
       </mat-icon>
-      <mat-icon *ngIf=" !isConnected " aria-hidden="false" aria-label="Example delete icon" class="example-icon">
+      <mat-icon *ngIf=" !isConnected " aria-hidden="false">
         signal_wifi_off
+      </mat-icon>
+      <mat-icon *ngIf="isAuth" aria-hidden="false">
+        account_circle
       </mat-icon>
     </mat-toolbar>
     <main class="content">

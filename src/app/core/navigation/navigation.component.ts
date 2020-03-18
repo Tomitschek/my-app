@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {ConnectionService} from 'ng-connection-service';
+import {AuthService} from '../auth/auth.service';
+import {User} from '../auth/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -17,10 +19,16 @@ export class NavigationComponent {
       shareReplay()
     );
 
+
   isConnected = true;
   status = 'ONLINE';
+  user: User;
 
-  constructor(private breakpointObserver: BreakpointObserver, connectionService: ConnectionService) {
+  isAuth = false;
+  authSubscription: Subscription;
+  userSubscription: Subscription;
+
+  constructor(private breakpointObserver: BreakpointObserver, connectionService: ConnectionService, private auth: AuthService) {
     connectionService.monitor().subscribe(isConnected => {
       this.isConnected = isConnected;
       if (this.isConnected) {
@@ -31,7 +39,21 @@ export class NavigationComponent {
         console.log(this.isConnected);
       }
     });
-
   }
 
+  ngOnInit() {
+    this.authSubscription = this.auth.authChange.subscribe(authStatus => {
+      this.isAuth = authStatus;
+    });
+    this.userSubscription = this.auth.user$.subscribe(user =>
+      this.user = user);
+  }
+
+  onLogout() {
+    this.auth.logout();
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
+  }
 }

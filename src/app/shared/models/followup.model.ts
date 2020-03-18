@@ -8,4 +8,6 @@ export interface FollowupModel {
   end?: Timestamp;
   sessionRef?: string;
   proceduren: string[];
+
+  aImage: string;
 }

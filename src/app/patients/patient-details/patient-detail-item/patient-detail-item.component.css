@@ -1,0 +1,13 @@
+.times {
+  font-size: small;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.button-cont {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+}

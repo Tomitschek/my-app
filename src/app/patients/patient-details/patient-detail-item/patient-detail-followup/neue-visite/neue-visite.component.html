@@ -1,0 +1,126 @@
+<h4>Neue Visite</h4>
+<hr>
+
+<form (ngSubmit)="submitHandler()" [formGroup]="visiteForm" [hidden]="success">
+  <mat-form-field>
+    <mat-placeholder>Beginn der Visite</mat-placeholder>
+    <mat-datetimepicker-toggle [for]="datetimePicker1" matSuffix></mat-datetimepicker-toggle>
+    <mat-datetimepicker #datetimePicker1 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+    <input [matDatetimepicker]="datetimePicker1" autocomplete="false" formControlName="start" matInput required>
+    <mat-error>Pflichtfeld!</mat-error>
+  </mat-form-field>
+  <mat-vertical-stepper #stepper (selectionChange)="onStepChange($event)" [linear]="isLinear">
+    <mat-step [stepControl]="allgFormGroup">
+      <form [formGroup]="allgFormGroup">
+        <ng-template matStepLabel>Allgemeine Angaben</ng-template>
+        <mat-form-field>
+          <input formControlName="nrs_gesamt" matInput placeholder="Gesamtkörperschmerz">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="schmerz_mobil" matInput placeholder="Mobilisierung">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="schmerz_resp" matInput placeholder="Respiration">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="schmerz_schlaf" matInput placeholder="Schlaf">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="verfahrenFormGroup">
+      <form [formGroup]="verfahrenFormGroup" fxLayoutGap="5px">
+        <ng-template matStepLabel>Verfahren</ng-template>
+        <mat-form-field>
+          <input formControlName="nrs_ruhe" matInput placeholder="NRS Ruhe">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="nrs_bel" matInput placeholder="NRS Belastung">
+        </mat-form-field>
+        <mat-checkbox formControlName="neuro_hypaesthesie">Hypästhesie</mat-checkbox>
+        <mat-checkbox formControlName="neuro_paraesthesie">Parästhesie</mat-checkbox>
+        <mat-checkbox formControlName="neuro_pathie">Neuropathie</mat-checkbox>
+
+        <mat-form-field>
+          <input formControlName="neuro_mot" matInput placeholder="motorische Funktion">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="infekt_kateg" matInput placeholder="Infektionszeichen">
+        </mat-form-field>
+        <mat-checkbox formControlName="neuro_haemat">Blutung</mat-checkbox>
+        <mat-checkbox formControlName="neuro_horner">Hornersyndrom</mat-checkbox>
+        <mat-checkbox formControlName="neuro_haemat_epidural">Epiduralhämatom</mat-checkbox>
+        <mat-checkbox formControlName="neuro_tns">TNS</mat-checkbox>
+        <mat-checkbox formControlName="neuro_pdph">Postpunktions Kopfschmerz</mat-checkbox>
+        <mat-checkbox formControlName="neuro_blutpatch">Blutpatch</mat-checkbox>
+        <mat-form-field>
+          <input formControlName="infekt_kateg" matInput placeholder="Infektionszeichen">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="medikamenteFormGroup">
+      <form [formGroup]="medikamenteFormGroup" fxLayoutGap="5px">
+        <ng-template matStepLabel>Medikamente</ng-template>
+        <mat-form-field>
+          <input formControlName="laufrate_neu" matInput placeholder="Laufrate">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="bolus_neu" matInput placeholder="Bolus">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="boli_erhalten" matInput placeholder="Boli erhalten">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="boli_abgefordert" matInput placeholder="Boli abgefordert">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Fertig</ng-template>
+      <a>Visite ist nun vollständig.</a>
+      <div>
+        <mat-form-field>
+          <mat-placeholder>Ende der Visite</mat-placeholder>
+          <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+          <mat-datetimepicker #datetimePicker2 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+          <input [matDatetimepicker]="datetimePicker2" autocomplete="false" formControlName="end" matInput required>
+          <mat-error>Pflichtfeld!</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button (click)="stepper.reset()" mat-button>Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+  <div class="anamnese-image-upload">
+    <button (click)="fileInput.click()" mat-icon-button type="button">
+      <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+    <input #fileInput (change)="uploadFile($event)" hidden id="file" type="file">
+    <div *ngIf="(uploadPercent$ | async) as percentage" calls="upload-progress">
+      Upload Progress:
+      <mat-progress-bar [value]="percentage" class="progress-bar" mode="determinate"></mat-progress-bar>
+      <span>{{percentage / 100 | percent}}</span>
+    </div>
+    <ng-container *ngIf="(downloadURL$ | async) as downloadURL">
+      <img [src]="downloadURL" class="uploaded-image">
+    </ng-container>
+  </div>
+  <div>
+    <button [disabled]="visiteForm.invalid" color="primary" mat-raised-button type="submit">add</button>
+  </div>
+</form>
+<div *ngIf="success">Visite gespeichert</div>

@@ -1,42 +1,5 @@
-<!-- Card Patienten:
-      * Name, Vorname
-      * Geburtsdatum
-      * OP
-      * OP-Tage
-      * Verfahren
-      * Isolationsstatus
-      * Station
-      * Abteilung
-      -->
-
 <mat-card class="card">
-  <!--
-  <mat-card-header>
-    <img mat-card-avatar
-         *ngIf="patient.geschlecht=='m'" src="assets/Images/man-161282_640.png">
-    <img mat-card-avatar
-         *ngIf="patient.geschlecht=='w'" src="assets/Images/user-297566_640.png">
-    <mat-card-title>
-        <span>  {{patient.name}}, {{patient.vorname}},
-          {{(((getCurDate().getTime() - patient.geburtsdatum) / (1000 * 3600 * 24 * 365))) | number:'1.0-0'}}, J
-        </span>
-        <span>{{patient.pid}}</span>
-    </mat-card-title>
-    <div fxLayout="column">
-      <span fxFlexAlign="end">{{patient.station}}</span>
-      <mat-chip *ngIf="patient.isolation" color="accent" selected>Isolation</mat-chip>
-    </div>
-    <mat-card-subtitle>
-      <span matBadge="+{{(((getCurDate().getTime() - patient.opDatum)/(1000 * 3600 * 24))) | number:'1.0-0'}}"
-            matBadgeOverlap="false">{{patient.geburtsdatum| date:'shortDate'}}, {{patient.operation}}</span>
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-actions>
-    <mat-chip-list aria-label="Verfahren">
-      <mat-chip color="primary" selected *ngFor="let v of patient.verfahren">{{v}}</mat-chip>
-    </mat-chip-list>
-  </mat-card-actions>
-  -->
+
   <section class="patcard" fxLayout="column">
     <div class="container" fxLayout>
       <div class="child" fxFlexAlign="center" fxLayout="column" id="left">
@@ -47,8 +10,9 @@
         <span id="pid">{{patient.pid}}</span>
       </div>
       <div class="child" id="middle">
-        <span>  {{patient.name}}, {{patient.vorname}},
-          {{(((getCurDate().getTime() - geb.getTime()) / (1000 * 3600 * 24 * 365))) | number:'1.0-0'}}, J
+        <span [routerLink]="['/patientdetails', patient.id]" routerLinkActive="active-link">
+          {{patient.name}}, {{patient.vorname}},
+          {{(((getCurDate().getTime() - geb.getTime()) / (1000 * 3600 * 24 * 365))) | number:'1.0-0'}} J
         </span>
       </div>
       <div class="child" fxFlexAlign="center" fxLayout="column" gdGap="2px" id="right">
@@ -61,6 +25,17 @@
       <mat-chip-list aria-label="Verfahren">
         <mat-chip *ngFor="let v of patient.verfahren" color="primary" selected>{{v}}</mat-chip>
       </mat-chip-list>
+    </div>
+    <div class="button-cont">
+      <button mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="attach()" *ngIf="patient.attachedTo != auth.userkey" mat-icon-button>
+        <mat-icon>move_to_inbox</mat-icon>
+      </button>
+      <button (click)="unAttach()" *ngIf="patient.attachedTo === auth.userkey" mat-icon-button>
+        <mat-icon>remove_circle</mat-icon>
+      </button>
     </div>
   </section>
 </mat-card>

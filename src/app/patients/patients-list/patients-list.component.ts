@@ -4,6 +4,8 @@ import {Patient} from '../../shared/models/patient.model';
 import {MatDialog} from '@angular/material/dialog';
 import {PatientNewDialogComponent} from '../patient-new-dialog/patient-new-dialog.component';
 import {PatientService} from '../../shared/patient.service';
+import {User} from '../../core/auth/user.model';
+import {AuthService} from '../../core/auth/auth.service';
 
 
 @Component({
@@ -13,15 +15,25 @@ import {PatientService} from '../../shared/patient.service';
 })
 export class PatientsListComponent implements OnInit, OnDestroy {
   newPatient: Patient;
+  attachedPatientsList$: Observable<Patient[]>;
+  unattachedPatientsList$: Observable<Patient[]>;
   patientsList$: Observable<Patient[]>;
   subs: Subscription[] = [];
+  user: User;
 
-  constructor(private fs: PatientService, public newPatDialog: MatDialog) {
+  constructor(private patientService: PatientService,
+              public newPatDialog: MatDialog,
+              public auth: AuthService) {
   }
 
   ngOnInit() {
-    this.patientsList$ = this.fs.getPatients();
+    this.patientsList$ = this.patientService.getPatients();
+    this.attachedPatientsList$ = this.patientService.getAttachedPatients(this.auth.userkey);
+    this.unattachedPatientsList$ = this.patientService.getAttachedPatients('');
     console.log('onInitPatList');
+    this.auth.user$.subscribe(aUser => {
+      this.user = aUser;
+    });
   }
 
   ngOnDestroy(): void {

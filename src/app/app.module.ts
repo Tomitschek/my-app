@@ -35,7 +35,6 @@ import {MatTableModule} from '@angular/material/table';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import de from '@angular/common/locales/de';
-import {SignupComponent} from './core/auth/signup/signup.component';
 import {LoginComponent} from './core/auth/login/login.component';
 import {PatientDetailsComponent} from './patients/patient-details/patient-details.component';
 import {DeviceComponent} from './device/device.component';
@@ -62,6 +61,17 @@ import {NeueAnamneseComponent} from './patients/patient-details/patient-detail-i
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatStepperModule} from '@angular/material/stepper';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {NeueOpComponent} from './patients/patient-details/patient-detail-item/patient-detail-operation/neue-op/neue-op.component';
+import {MatDatetimepickerModule, MatNativeDatetimeModule} from '@mat-datetimepicker/core';
+import {NeueProcedureComponent} from './patients/patient-details/patient-detail-item/patient-detail-procedure/neue-procedure/neue-procedure.component';
+import {NeueVisiteComponent} from './patients/patient-details/patient-detail-item/patient-detail-followup/neue-visite/neue-visite.component';
+import {AuthGuard} from './core/auth/auth.guard';
+import {AuthService} from './core/auth/auth.service';
+import {SignupComponent} from './core/auth/signup/signup.component';
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faFileMedicalAlt, faStethoscope, faSyringe, faTools} from '@fortawesome/free-solid-svg-icons';
 
 
 registerLocaleData(de);
@@ -75,7 +85,6 @@ registerLocaleData(de);
     HomeComponent,
     PatientsListComponent,
     PatientListItemComponent,
-    SignupComponent,
     LoginComponent,
     PatientDetailsComponent,
     DeviceComponent,
@@ -89,10 +98,16 @@ registerLocaleData(de);
     LineChartComponent,
     PatientDetailItemComponent,
     PatientDetailAddItemNavComponent,
-    NeueAnamneseComponent
+    NeueAnamneseComponent,
+    NeueOpComponent,
+    NeueProcedureComponent,
+    NeueVisiteComponent,
+    SignupComponent
   ],
   providers: [
     AngularFireStorage,
+    AuthGuard,
+    AuthService,
     {provide: FirestoreSettingsToken, useValue: {}}, // https://github.com/angular/angularfire2/issues/1993
     {provide: LOCALE_ID, useValue: 'de-de'},
     {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
@@ -123,12 +138,23 @@ registerLocaleData(de);
     MatBottomSheetModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatStepperModule,
+    MatNativeDatetimeModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, MatDialogModule, ReactiveFormsModule, MatRadioModule, MatNativeDateModule, AngularFireStorageModule,
+    AngularFireAuthModule,
     AppRoutingModule, ChartsModule, MatProgressSpinnerModule, GridModule,
-    FlexLayoutModule, MatProgressBarModule
+    FlexLayoutModule, MatProgressBarModule, MatDatetimepickerModule, FontAwesomeModule
   ],
   bootstrap: [AppComponent],
   entryComponents: [PatientNewDialogComponent, PatientDetailAddItemNavComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    // Add an icon to the library for convenient access in other components
+    library.addIcons(faFileMedicalAlt);
+    library.addIcons(faTools);
+    library.addIcons(faStethoscope);
+    library.addIcons(faSyringe);
+  }
+}

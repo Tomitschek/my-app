@@ -1,8 +1,45 @@
 import Timestamp = firebase.firestore.Timestamp;
 import * as firebase from 'firebase';
+import {Medikament} from './medikament.model';
 
-export interface Interface {
+export interface AnamneseModel {
   id?: string;
   patRef?: string;
-  begin?: Timestamp;
+  start?: Timestamp | Date;
+  groesse: number;
+  gewicht: number;
+  asa: string;
+  isolation: boolean;
+  cps: boolean;
+  bs: boolean;
+  ts: boolean;
+  opioide: boolean;
+  nsaids: boolean;
+  nrs_ruhe_prae: number;
+  nrs_bel_prae: number;
+  diabetes: boolean;
+  hba1c: number;
+  pavk: boolean;
+  rheuma: boolean;
+  alkohol: boolean;
+  drogen: boolean;
+  infektion_praeop: boolean;
+  sepsis: boolean;
+  niereninsuff: boolean;
+  krea: number;
+  gfr: number;
+  leberinsuff: boolean;
+  immun_steroide: boolean;
+  immun_suppressiva: boolean;
+  immun_tx: boolean;
+  immun_tumor: boolean;
+  immun_erkrank: boolean;
+  gerinnung: boolean;
+  thrombos: number;
+  ptt: number;
+  inr: number;
+  anti_xa: number;
+  antikoag: boolean;
+  medis: Medikament[];
+  aImage?: string;
 }

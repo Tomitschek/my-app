@@ -1,1 +1,35 @@
-<p>patient-detail-anamnese works!</p>
+<div *ngIf="anamnese$ | async as anamnese; else: spin" gdGap="10px">
+  <mat-card-header md-colors="::{backgroundColor: 'default-primary-700'}">
+    <div mat-card-avatar>
+      <fa-icon icon="file-medical-alt"></fa-icon>
+    </div>
+    <mat-card-title>
+      Anamnese
+      <button aria-label="Toggle menu" class="more-button" mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-card-title>
+  </mat-card-header>
+  <ng-container *ngIf="anamnese.aImage">
+    <img [src]="anamnese.aImage" mat-card-image>
+  </ng-container>
+
+  <mat-chip-list aria-label="Verfahren">
+    <mat-chip *ngIf="anamnese.cps">
+      CPS
+    </mat-chip>
+    <mat-chip *ngIf="anamnese.diabetes">
+      D.m.
+    </mat-chip>
+    <mat-chip *ngIf="anamnese.infektion_praeop">
+      septisch
+    </mat-chip>
+    <mat-chip *ngIf="anamnese.antikoag">
+      Antikoagulation
+    </mat-chip>
+  </mat-chip-list>
+</div>
+<ng-template #spin>
+  <mat-spinner></mat-spinner>
+</ng-template>
+

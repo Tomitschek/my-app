@@ -43,7 +43,7 @@ p {
 $border-color: rgba(red, .3);
 
 .timeline-item {
-  padding: 2em 0em 0em 1em;
+  padding: 0em 0em 0em 1em;
   position: relative;
   color: rgba(black, .7);
   border-left: 2px solid $border-color;
@@ -53,11 +53,11 @@ $border-color: rgba(red, .3);
   }
 
   &::before {
-    content: attr(date-is);
+    // content: attr(date-is);
     position: absolute;
     left: 2em;
     font-weight: bold;
-    top: 1em;
+    top: 0em;
     display: block;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
@@ -68,7 +68,7 @@ $border-color: rgba(red, .3);
     width: 20px;
     height: 20px;
     display: block;
-    top: 1em;
+    top: 0em;
     position: absolute;
     left: -14px;
     border-radius: 10px;
@@ -83,11 +83,4 @@ $border-color: rgba(red, .3);
         $border-color 60%,
         rgba($border-color, 0)) 1 100%;
   }
-}
-
-.fab {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  z-index: 100;
 }

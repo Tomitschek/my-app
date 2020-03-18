@@ -1,1 +1,20 @@
-<p>patient-detail-followup works!</p>
+<div *ngIf="visite$ | async as visite; else: spin" gdGap="10px">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <fa-icon icon="stethoscope"></fa-icon>
+    </div>
+    <mat-card-title>
+      Visite
+      <button aria-label="Toggle menu" class="more-button" mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-card-title>
+  </mat-card-header>
+  <ng-container *ngIf="visite.aImage">
+    <img [src]="visite.aImage" mat-card-image>
+  </ng-container>
+
+</div>
+<ng-template #spin>
+  <mat-spinner></mat-spinner>
+</ng-template>

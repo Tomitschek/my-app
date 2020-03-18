@@ -15,4 +15,6 @@ export interface Patient {
   abteilung?: string;
   isolation?: boolean;
   state?: 'aktiv' | 'abgeschlossen' | null;
+  attachedTo?: string;
+  created?: string;
 }

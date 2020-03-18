@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Patient} from '../../../shared/models/patient.model';
+import {AuthService} from '../../../core/auth/auth.service';
+import {PatientService} from '../../../shared/patient.service';
 
 
 @Component({
@@ -14,7 +16,8 @@ export class PatientListItemComponent implements OnInit {
   geb: Date;
 
 
-  constructor() {
+  constructor(public auth: AuthService,
+              private ps: PatientService) {
   }
 
   ngOnInit() {
@@ -24,5 +27,15 @@ export class PatientListItemComponent implements OnInit {
 
   getCurDate() {
     return this.heute;
+  }
+
+  unAttach() {
+    this.patient.attachedTo = '';
+    this.ps.updatePatient(this.patient);
+  }
+
+  attach() {
+    this.patient.attachedTo = this.auth.userkey;
+    this.ps.updatePatient(this.patient);
   }
 }

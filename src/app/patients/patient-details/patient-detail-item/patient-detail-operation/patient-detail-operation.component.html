@@ -1,1 +1,19 @@
-<p>patient-detail-operation works!</p>
+<div *ngIf="operation$ | async as operation; else: spin" gdGap="10px">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <fa-icon icon="tools"></fa-icon>
+    </div>
+    <mat-card-title>
+      Operation
+      <button aria-label="Toggle menu" class="more-button" mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-card-title>
+  </mat-card-header>
+  <ng-container *ngIf="operation.aImage">
+    <img [src]="operation.aImage" mat-card-image>
+  </ng-container>
+</div>
+<ng-template #spin>
+  <mat-spinner></mat-spinner>
+</ng-template>

@@ -1,0 +1,60 @@
+<h1>Neue Procedure</h1>
+<hr>
+<form (ngSubmit)="submitHandler()" [formGroup]="procedureForm" [hidden]="success">
+  <mat-form-field>
+    <mat-placeholder>Anlage-Beginn</mat-placeholder>
+    <mat-datetimepicker-toggle [for]="datetimePicker1" matSuffix></mat-datetimepicker-toggle>
+    <mat-datetimepicker #datetimePicker1 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+    <input [matDatetimepicker]="datetimePicker1" autocomplete="false" formControlName="start" matInput required>
+    <mat-error>Pflichtfeld!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-placeholder>Anlage-Ende</mat-placeholder>
+    <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+    <mat-datetimepicker #datetimePicker2 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+    <input [matDatetimepicker]="datetimePicker2" autocomplete="false" formControlName="end" matInput required>
+    <mat-error>Pflichtfeld!</mat-error>
+  </mat-form-field>
+  <form [formGroup]="procedureDetailForm" [hidden]="success">
+    <mat-form-field>
+      <input formControlName="arzt" matInput placeholder="Arzt">
+    </mat-form-field>
+    <div formArrayName="procs">
+      <div *ngFor="let medi of procForms.controls; let i=index" [formGroupName]="i">
+        <mat-form-field class="xs">
+          <input formControlName="name" matInput placeholder="Verfahren">
+        </mat-form-field>
+        <mat-form-field class="xs">
+          <input formControlName="material" matInput placeholder="Material">
+        </mat-form-field>
+        <mat-form-field class="xs">
+          <input formControlName="status" matInput placeholder="Status">
+        </mat-form-field>
+
+        <button (click)="deleteProc(i)" color="warn" mat-raised-button>Delete</button>
+      </div>
+    </div>
+    <button (click)="addProc()" color="primary" mat-raised-button>Verfahren hinzufügen</button>
+  </form>
+  <div class="anamnese-image-upload">
+    <button (click)="fileInput.click()" mat-icon-button type="button">
+      <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+    <input #fileInput (change)="uploadFile($event)" hidden id="file" type="file">
+    <div *ngIf="(uploadPercent$ | async) as percentage" calls="upload-progress">
+      Upload Progress:
+      <mat-progress-bar [value]="percentage" class="progress-bar" mode="determinate"></mat-progress-bar>
+      <span>{{percentage / 100 | percent}}</span>
+    </div>
+    <ng-container *ngIf="(downloadURL$ | async) as downloadURL">
+      <img [src]="downloadURL" class="uploaded-image">
+    </ng-container>
+  </div>
+  <div>
+    <button [disabled]="procedureForm.invalid" color="primary" mat-raised-button type="submit">add</button>
+  </div>
+
+</form>
+<div *ngIf="success">Procedure gespeichert</div>
+

@@ -1,15 +1,14 @@
 <div *ngIf="patient$ | async as patient; else: spin" gdGap="10px">
   <app-patient-list-item [patient]="patient"></app-patient-list-item>
   <app-line-chart></app-line-chart>
-  <div *ngFor="let timelineElement of (timelineElements$ | async)" class="container">
-
+  <div *ngFor="let timelineElement of (timelineElements$ | async)?.slice().reverse()" class="container">
     <div class="timeline-item" date-is='12-12-2020'>
-      <app-patient-detail-item [timelineElement]="timelineElement"></app-patient-detail-item>
+      <app-patient-detail-item [patId]="patientId" [timelineElement]="timelineElement"></app-patient-detail-item>
     </div>
   </div>
 </div>
 <button (click)="openBottomSheet()" class="fab" mat-fab>
-  <mat-icon>add</mat-icon>
+  <mat-icon>post_add</mat-icon>
 </button>
 <ng-template #spin>
   <mat-spinner></mat-spinner>

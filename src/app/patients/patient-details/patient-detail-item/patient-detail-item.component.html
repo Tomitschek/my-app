@@ -1,3 +1,26 @@
-<p>{{timelineElement.start|date: 'shortDate'}}</p>
-<p>{{timelineElement.type}}</p>
+<p class="times">{{timelineElement.start|date: 'short'}}</p>
+<mat-card>
+  <div>
+    <div *ngIf="timelineElement.type == 'Anamnese'">
+      <app-patient-detail-anamnese [patId]="patId" [timelineEventId]="timelineElement.id"></app-patient-detail-anamnese>
+    </div>
+    <div *ngIf="timelineElement.type == 'Operation'">
+      <app-patient-detail-operation [patId]="patId"
+                                    [timelineEventId]="timelineElement.id"></app-patient-detail-operation>
+    </div>
+    <div *ngIf="timelineElement.type == 'Procedure'">
+      <app-patient-detail-procedure [patId]="patId"
+                                    [timelineEventId]="timelineElement.id"></app-patient-detail-procedure>
+    </div>
+    <div *ngIf="timelineElement.type == 'Visite'">
+      <app-patient-detail-followup [patId]="patId" [timelineEventId]="timelineElement.id"></app-patient-detail-followup>
+    </div>
+  </div>
+</mat-card>
+<p class="times">{{timelineElement.end|date: 'short'}}</p>
+
+
+
+
+
 

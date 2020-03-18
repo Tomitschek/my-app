@@ -1,0 +1,57 @@
+<h1>Neue Operation</h1>
+<hr>
+<form (ngSubmit)="submitHandler()" [formGroup]="operationForm" [hidden]="success">
+  <mat-form-field>
+    <mat-placeholder>OP-Beginn</mat-placeholder>
+    <mat-datetimepicker-toggle [for]="datetimePicker1" matSuffix></mat-datetimepicker-toggle>
+    <mat-datetimepicker #datetimePicker1 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+    <input [matDatetimepicker]="datetimePicker1" autocomplete="false" formControlName="start" matInput required>
+    <mat-error>Pflichtfeld!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-placeholder>OP-Ende</mat-placeholder>
+    <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+    <mat-datetimepicker #datetimePicker2 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+    <input [matDatetimepicker]="datetimePicker2" autocomplete="false" formControlName="end" matInput required>
+    <mat-error>Pflichtfeld!</mat-error>
+  </mat-form-field>
+  <form [formGroup]="operationDetailForm" [hidden]="success">
+    <mat-form-field>
+      <input formControlName="operateur" matInput placeholder="Operateur">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="ops" matInput placeholder="OPS-Code">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="op_bezeichnung" matInput placeholder="OP-Bezeichnung">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="op_saal" matInput placeholder="OP-Saal">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="blutverlust" matInput placeholder="Blutverlust">
+    </mat-form-field>
+    <mat-checkbox formControlName="notfall" id="notfall">NotfallOP</mat-checkbox>
+    <mat-checkbox formControlName="septisch" id="septisch">septische OP</mat-checkbox>
+  </form>
+  <div class="anamnese-image-upload">
+    <button (click)="fileInput.click()" mat-icon-button type="button">
+      <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+    <input #fileInput (change)="uploadFile($event)" hidden id="file" type="file">
+    <div *ngIf="(uploadPercent$ | async) as percentage" calls="upload-progress">
+      Upload Progress:
+      <mat-progress-bar [value]="percentage" class="progress-bar" mode="determinate"></mat-progress-bar>
+      <span>{{percentage / 100 | percent}}</span>
+    </div>
+    <ng-container *ngIf="(downloadURL$ | async) as downloadURL">
+      <img [src]="downloadURL" class="uploaded-image">
+    </ng-container>
+  </div>
+  <div>
+    <button [disabled]="operationForm.invalid" color="primary" mat-raised-button type="submit">add</button>
+  </div>
+
+</form>
+<div *ngIf="success">Operation gespeichert</div>

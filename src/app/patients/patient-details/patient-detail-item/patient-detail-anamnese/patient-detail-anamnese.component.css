@@ -1,0 +1,18 @@
+.anamnese-card {
+  background-color: #74cae3;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.timeline-icon {
+  padding-right: 5px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+

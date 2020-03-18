@@ -1,28 +1,201 @@
+<h1>
+  <fa-icon icon="file-medical-alt"></fa-icon>
+  Neue Anamnese
+</h1>
+<hr>
 <form (ngSubmit)="submitHandler()" [formGroup]="anamneseForm" [hidden]="success">
-  <h1>Neue Anamnese</h1>
-  <hr>
-  <mat-form-field>
-    <input formControlName="start" matInput placeholder="Begin">
-  </mat-form-field>
+  <mat-vertical-stepper #stepper [linear]="isLinear">
+    <mat-step [stepControl]="allgFormGroup">
+      <form [formGroup]="allgFormGroup">
+        <ng-template matStepLabel>Allgemeine Angaben</ng-template>
+        <mat-form-field>
+          <input formControlName="groesse" matInput placeholder="Größe">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="gewicht" matInput placeholder="Gewicht">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="asa" matInput placeholder="ASA">
+        </mat-form-field>
+        <div>
+          <mat-checkbox formControlName="isolation">Isolation</mat-checkbox>
+        </div>
 
-  <mat-form-field>
-    <input formControlName="end" matInput placeholder="Ende">
-  </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="schmerzFormGroup">
+      <form [formGroup]="schmerzFormGroup" fxLayoutGap="5px">
+        <ng-template matStepLabel>Schmerzanamnese</ng-template>
+        <div>
+          <mat-checkbox formControlName="cps">chronischer Schmerzpatient?</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="ts">Tumorschmerz</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="bs">Sonstiger Schmerz ohne OP</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="opioide">Opioide > 1 Monat</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="nsaids">NOPA > 1 Monat</mat-checkbox>
+        </div>
+        <mat-form-field>
+          <input formControlName="nrs_ruhe_prae" matInput placeholder="NRS in Ruhe präOP">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="nrs_bel_prae" matInput placeholder="NRS bei Belastung präOP">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
 
-  <mat-form-field>
-    <textarea formControlName="type" matInput placeholder="Type">
-    </textarea>
-  </mat-form-field>
+    <mat-step [stepControl]="komorbFormGroup">
+      <form [formGroup]="komorbFormGroup" fxLayoutGap="5px">
+        <ng-template matStepLabel>Begleiterkrankungen</ng-template>
+        <mat-checkbox formControlName="diabetes" id="diabetes">Diabetes mellitus</mat-checkbox>
+        <div [hidden]="!komorbFormGroup.get('diabetes').value">
+          <mat-form-field>
+            <input formControlName="hba1c" matInput placeholder="HbA1c">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-checkbox formControlName="pavk">pAVK > IIa</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="rheuma">Rheumatoide Arthritis</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="alkohol">Alkoholabusus?</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="drogen">Drogen?</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="infektion_praeop">Systemische Infektion bei Anlage</mat-checkbox>
+        </div>
+
+        <div [hidden]="!komorbFormGroup.get('infektion_praeop').value">
+          <mat-checkbox formControlName="sepsis">Diagnose Sepsis</mat-checkbox>
+          <mat-checkbox formControlName="antibiose_praeop">Antibiotikatherapie präOP</mat-checkbox>
+        </div>
+        <mat-checkbox formControlName="niereninsuff">Niereninsuffizienz</mat-checkbox>
+        <div [hidden]="!komorbFormGroup.get('niereninsuff').value">
+          <mat-form-field>
+            <input formControlName="krea" matInput placeholder="Serum Kreatinin">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="gfr" matInput placeholder="KreaClearance">
+          </mat-form-field>
+        </div>
+        <mat-checkbox formControlName="leberinsuff">Leberinsuffizienz CHILD C</mat-checkbox>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="immunFormGroup">
+      <form [formGroup]="immunFormGroup">
+        <ng-template matStepLabel>Immundefizienz</ng-template>
+        <mat-checkbox formControlName="immun_steroide"> Steroide > Cushing</mat-checkbox>
+        <mat-checkbox formControlName="immun_suppressiva">Immunsuppressiva</mat-checkbox>
+        <mat-checkbox formControlName="immun_tx">Transplantation</mat-checkbox>
+        <mat-checkbox formControlName="immun_tumor">maligne Tumorerkrankung</mat-checkbox>
+        <mat-checkbox formControlName="immun_erkrank">sonstige Immunerkrankung z. B. HIV</mat-checkbox>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="gerinnungFormGroup">
+      <form [formGroup]="gerinnungFormGroup">
+        <ng-template matStepLabel>Gerinnung</ng-template>
+        <mat-form-field>
+          <input formControlName="thrombos" matInput placeholder="Thrombos">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="inr" matInput placeholder="INR">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="ptt" matInput placeholder="PTT">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="anti_xa" matInput placeholder="Anti-Xa">
+        </mat-form-field>
+        <mat-checkbox formControlName="gerinnung" id="gerinnung">Gerinnungsstörung</mat-checkbox>
+        <mat-checkbox formControlName="antikoag" id="antikoag">Antikoagulation</mat-checkbox>
+
+        <!-- optionale Medikamenten Abfrage -->
+        <div [hidden]="!gerinnungFormGroup.get('antikoag').value">
+          <div formArrayName="medis">
+            <div *ngFor="let medi of medisForms.controls; let i=index" [formGroupName]="i">
+              <mat-form-field class="xs">
+                <input formControlName="name" matInput placeholder="Medikament">
+              </mat-form-field>
+              <mat-form-field class="xs">
+                <input formControlName="dosis" matInput placeholder="Dosis">
+              </mat-form-field>
+              <mat-checkbox formControlName="beendet" id="leitliniengerecht">leitliniengerecht</mat-checkbox>
+              <button (click)="deleteMedi(i)" color="warn" mat-raised-button>Delete</button>
+            </div>
+          </div>
+          <button (click)="addMedi()" color="primary" mat-raised-button>Medikament hinzufügen</button>
+        </div>
+        <!--  -->
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Fertig</ng-template>
+      Anamnese ist nun vollständig.
+      <mat-form-field>
+        <mat-placeholder>Anamnese Start</mat-placeholder>
+        <mat-datetimepicker-toggle [for]="datetimePicker1" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #datetimePicker1 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+        <input [matDatetimepicker]="datetimePicker1" autocomplete="false" formControlName="start" matInput required>
+        <mat-error>Pflichtfeld!</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-placeholder>Ende der Anamnese</mat-placeholder>
+        <mat-datetimepicker-toggle [for]="datetimePicker2" matSuffix></mat-datetimepicker-toggle>
+        <mat-datetimepicker #datetimePicker2 openOnFocus="true" timeInterval="5" type="datetime"></mat-datetimepicker>
+        <input [matDatetimepicker]="datetimePicker2" autocomplete="false" formControlName="end" matInput required>
+        <mat-error>Pflichtfeld!</mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button (click)="stepper.reset()" mat-button>Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
   <div class="anamnese-image-upload">
-    <span>Image:</span>
-    <input (change)="uploadFile($event)" type="file">
+    <button (click)="fileInput.click()" mat-icon-button type="button">
+      <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+    <input #fileInput (change)="uploadFile($event)" hidden id="file" type="file">
     <div *ngIf="(uploadPercent$ | async) as percentage" calls="upload-progress">
       Upload Progress:
       <mat-progress-bar [value]="percentage" class="progress-bar" mode="determinate"></mat-progress-bar>
       <span>{{percentage / 100 | percent}}</span>
     </div>
+    <ng-container *ngIf="(downloadURL$ | async) as downloadURL">
+      <img [src]="downloadURL" class="uploaded-image">
+    </ng-container>
   </div>
-  <button [disabled]="anamneseForm.invalid" color="primary" mat-raised-button type="submit">add</button>
+  <div>
+    <button [disabled]="anamneseForm.invalid" color="primary" mat-raised-button type="submit">add</button>
+  </div>
 </form>
 
 <div *ngIf="success">Anamnese gespeichert</div>

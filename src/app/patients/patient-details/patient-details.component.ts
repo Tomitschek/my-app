@@ -37,7 +37,6 @@ export class PatientDetailsComponent implements OnInit, OnDestroy {
       })
     );
     console.log(this.patientId);
-
   }
 
   openBottomSheet(): void {
